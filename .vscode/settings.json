@@ -11,5 +11,6 @@
     ],
     "idf.port": "/dev/ttyUSB0",
     "idf.pythonBinPath": "/home/nilutpolk/.espressif/python_env/idf4.4_py3.10_env/bin/python",
-    "idf.toolsPath": "/home/nilutpolk/.espressif"
+    "idf.toolsPath": "/home/nilutpolk/.espressif",
+    "idf.flashType": "UART"
 }
