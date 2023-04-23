@@ -19,14 +19,61 @@ ESP-IDF projects are built using CMake. The project build configuration is conta
 files that provide set of directives and instructions describing the project's source files and targets
 (executable, library, or both). 
 
-Below is short explanation of remaining files in the project folder.
+## New Project in ESP-IDF
+I created a new project in ESP-IDF using the 'getting-started/sample_project" template. 
 
+**Used 'micro_ros_espidf_component' as component. 
+
+### Initial project folder structure:
 ```
 ├── CMakeLists.txt
+├── components
+|   └── micro_ros_espidf_component
 ├── main
 │   ├── CMakeLists.txt
+│   ├── component.mk
 │   └── main.c
 └── README.md                  This is the file you are currently reading
 ```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+
+### Building the project:
+```
+idf.py set-target esp32
+idf.py build
+```
+
+## Working with 'micro_ros_espidf_component/examples/int32_publisher'
+
+### Steps:
+- Copied the code from 'int32_publisher/main/main.c' into 'esp32_ros2_example/main/main.c'
+- Copied 'Kconfig.projbuild' file inside 'esp32_ros2_example/main' directory
+- **'idf.py menuconfig'** and then changed Wifi SSID and password inside 'micro-ROS settings'
+
+### Folder structure
+```
+├── CMakeLists.txt
+├── components
+|   └── micro_ros_espidf_component
+├── main
+│   ├── CMakeLists.txt
+    ├── component.mk
+    ├── Kconfig.projbuild
+│   └── main.c
+└── README.md                  
+```
+
+### Building and flashing the project:
+```
+idf.py build
+idf.py flash -p <MY_PORT>
+idf.py monitor -p <MY_PORT>
+```
+Successfully built and flashed into the EPS32
+
+### Output Recived (Success)
+```
+I (2884) wifi_station_netif: got ip:192.168.43.84
+I (2884) wifi_station_netif: connected to ap SSID:my_ssid password:mypassword
+```
+
+## Working with 'micro_ros_espidf_component/examples/int32_publisher'
