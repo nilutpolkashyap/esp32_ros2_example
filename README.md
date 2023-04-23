@@ -1,28 +1,9 @@
-# _Sample project_
-
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
-
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
-
-
-
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
-
-## Example folder contents
-
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
-
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
+# 
 
 ## New Project in ESP-IDF
 I created a new project in ESP-IDF using the 'getting-started/sample_project" template. 
 
-**Used 'micro_ros_espidf_component' as component. 
+**Used **'micro_ros_espidf_component'** as component. 
 
 ### Initial project folder structure:
 ```
@@ -35,6 +16,7 @@ I created a new project in ESP-IDF using the 'getting-started/sample_project" te
 │   └── main.c
 └── README.md                  This is the file you are currently reading
 ```
+Commit : https://github.com/nilutpolkashyap/esp32_ros2_example/commit/1ca1df4b936e613afcd0ff83152ab82c29210fae
 
 ### Building the project:
 ```
@@ -62,6 +44,8 @@ idf.py build
 └── README.md                  
 ```
 
+Commit : https://github.com/nilutpolkashyap/esp32_ros2_example/commit/19253bae383c29af977ed0321aa9b75ebaef46a0
+
 ### Building and flashing the project:
 ```
 idf.py build
@@ -76,4 +60,39 @@ I (2884) wifi_station_netif: got ip:192.168.43.84
 I (2884) wifi_station_netif: connected to ap SSID:my_ssid password:mypassword
 ```
 
-## Working with 'micro_ros_espidf_component/examples/int32_publisher'
+## Working with 'micro_ros_espidf_component/examples/int32_publisher_custom_transport'
+
+### Steps:
+- Copied the code from 'int32_publisher_custom_transport/main/main.c' into 'esp32_ros2_example/main/main.c'
+- Copied 'Kconfig.projbuild' file inside 'esp32_ros2_example/main' directory
+- Copied 'esp32_serial_transport.h' and 'esp32_serial_transport.c' files inside 'esp32_ros2_example/main' directory
+- Updated 'main/CMakeLists.txt' to include 'esp32_serial_transport.c'
+- Copied 'app-colcon.meta' and 'colcon.meta' files from 'int32_publisher_custom_transport' inside 'esp32_ros2_example' directory
+- **'idf.py menuconfig'** and then changed 'micro-ROS network interface select' to 'Micro XRCE-DDS over UART' option inside 'micro-ROS settings'
+
+### Folder structure
+```
+├── CMakeLists.txt
+├── components
+|   └── micro_ros_espidf_component
+├── main
+│   ├── CMakeLists.txt
+    ├── component.mk
+    ├── esp32_serial_transport.c
+    ├── esp32_serial_transport.h
+    ├── Kconfig.projbuild
+│   └── main.c
+├── app-colcon.meta
+├── colcon.meta
+└── README.md                  
+```
+
+Commit : https://github.com/nilutpolkashyap/esp32_ros2_example/commit/83998dedf83ea90b99eb060f44d2a6cd30a54f18
+
+### Building the project:
+```
+idf.py build
+```
+
+### Output Recived (ERROR)
+Issue Raised : https://github.com/micro-ROS/micro_ros_espidf_component/issues/189
