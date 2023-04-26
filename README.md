@@ -63,12 +63,19 @@ I (2884) wifi_station_netif: connected to ap SSID:my_ssid password:mypassword
 ## Working with 'micro_ros_espidf_component/examples/int32_publisher_custom_transport'
 
 ### Steps:
+- Make changes to 'colcon.meta' file inside 'components/micro_ros_espidf_component'
+```
+cd components/micro_ros_espidf_component/
+sed -i 's/DRMW_UXRCE_TRANSPORT=udp/DRMW_UXRCE_TRANSPORT=custom/' colcon.meta
+```
+- Type **'idf.py clean-microros'** inside the project to clean and rebuild all the micro-ROS library
 - Copied the code from 'int32_publisher_custom_transport/main/main.c' into 'esp32_ros2_example/main/main.c'
 - Copied 'Kconfig.projbuild' file inside 'esp32_ros2_example/main' directory
 - Copied 'esp32_serial_transport.h' and 'esp32_serial_transport.c' files inside 'esp32_ros2_example/main' directory
 - Updated 'main/CMakeLists.txt' to include 'esp32_serial_transport.c'
 - Copied 'app-colcon.meta' and 'colcon.meta' files from 'int32_publisher_custom_transport' inside 'esp32_ros2_example' directory
-- **'idf.py menuconfig'** and then changed 'micro-ROS network interface select' to 'Micro XRCE-DDS over UART' option inside 'micro-ROS settings'
+- Type **'idf.py menuconfig'** and then changed 'micro-ROS network interface select' to 'Micro XRCE-DDS over UART' option inside 'micro-ROS settings'
+- In **idf.py menuconfig**, changed both **UART TX pin** and **UART RX pin** to **'0'** inside 'micro-ROS settings -> UART settings'
 
 ### Folder structure
 ```
@@ -83,16 +90,13 @@ I (2884) wifi_station_netif: connected to ap SSID:my_ssid password:mypassword
     ├── Kconfig.projbuild
 │   └── main.c
 ├── app-colcon.meta
-├── colcon.meta
 └── README.md                  
 ```
 
 Commit : https://github.com/nilutpolkashyap/esp32_ros2_example/commit/83998dedf83ea90b99eb060f44d2a6cd30a54f18
 
-### Building the project:
+### Building and flash the project:
 ```
 idf.py build
+idf.py flash -p <MY_PORT>
 ```
-
-### Output Recived (ERROR)
-Issue Raised : https://github.com/micro-ROS/micro_ros_espidf_component/issues/189
